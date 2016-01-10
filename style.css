@@ -1,0 +1,20 @@
+body{
+
+}
+
+
+img{
+  display: none;
+}
+
+.tile {
+  height: 150px;
+  background-color: azure;
+  border: 1px solid black;
+  text-align: center;
+  padding-top: 5px;
+}
+
+.reveal{
+  display: inline-block;
+}
