@@ -6,6 +6,7 @@ gameApp.firstSelectedTileNum;
 gameApp.$firstSelectedTile;
 gameApp.secondTileNum;
 gameApp.$secondTile;
+gameApp.doneTiles = [];
 
 
 $(document).ready(init);
@@ -14,7 +15,15 @@ function init(){
   var cardDeck = makeDeckCards();
   var shuffledDeck = shuffleDeck(cardDeck);
   appendCardstoDOM(shuffledDeck);
+  clickHandler();
+
+}
+
+function clickHandler(){
   $('.tile').click(tileClicked);
+  $('#reset').click(reset);
+
+
 
 }
 
@@ -37,7 +46,8 @@ function makeDeckCards(){
 
 // Fisher-Yates (aka Knuth) Shuffle algorithm
 function shuffleDeck(array){
-  var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length;
+  var temporaryValue, randomIndex;
 
   while (0 !== currentIndex) {
     randomIndex = Math.floor(Math.random() * currentIndex);
@@ -71,6 +81,10 @@ function tileClicked(event){
   } else {
     gameApp.secondTileNum = $(this).data("tile");
     gameApp.$secondTile = $(this);
+    $('.tile').off('click');
+    setTimeout(function(){
+      clickHandler();
+    }, 800);
     secondTileClick();
   }
 }
@@ -88,7 +102,8 @@ function selectTile(){
 
 
 function secondTileClick(){
-  if(gameApp.firstSelectedTileNum === gameApp.secondTileNum){
+  if(gameApp.firstSelectedTileNum === gameApp.secondTileNum ||
+      gameApp.doneTiles.indexOf(gameApp.secondTileNum) > -1){
     return;
   }
   gameApp.$secondTile.children().first().addClass("reveal");
@@ -104,29 +119,42 @@ function checkForMatch(){
   console.log("first pup", $firstPup);
   console.log("second pup", $secondPup);
   console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
+
   if ($firstPup.data("pupNum") === $secondPup.data("pupNum")){
     //add some animation here
-
-    $firstPup.remove();
-    $secondPup.remove();
-    gameApp.$firstSelectedTile.css("background-color", "LightSteelBlue");
-    gameApp.$secondTile.css("background-color", "LightSteelBlue");
+    $secondPup.addClass("reveal");
+    setTimeout(removePuppies, 900);
+    gameApp.$firstSelectedTile.css("background-color", "PeachPuff");
+    gameApp.$secondTile.css("background-color", "PeachPuff");
+    gameApp.doneTiles.push(gameApp.firstSelectedTileNum, gameApp.secondTileNum);
     gameApp.firstTileSelected = false;
+    setTimeout(checkForWin, 200);
 
   } else {
     setTimeout(hidePuppies, 900);
     gameApp.firstTileSelected = false;
+  }
 
-    function hidePuppies(){
-      $firstPup.removeClass('reveal');
-      $secondPup.removeClass('reveal');
-    }
+  function removePuppies(){
+    $firstPup.remove();
+    $secondPup.remove();
+  }
+  function hidePuppies(){
+    $firstPup.removeClass('reveal');
+    $secondPup.removeClass('reveal');
+  }
+}
+
+
+function checkForWin(){
+  console.log("check for win")
+  if (gameApp.doneTiles.length === 16)
+  {
+    alert("you win!");
   }
 
 }
 
-
-
-function checkWin(){
-
+function reset(){
+  location.reload();
 }

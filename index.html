@@ -5,11 +5,21 @@
   <title>Memory Game</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   <link rel="stylesheet" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
 </head>
 <body>
   <div class="container">
-    <div class="row">
+    <div id="header">
+      <div class="row" id="welcome">
+        <h1>Welcome to Paige's Memory Game!</h1>
+      </div>
+      <div class="row">
+        <br>
+        <button id='reset' type="button" class="btn btn-primary-outline">Reset</button>
+      </div>
+    </div>
 
+    <div class="row">
       <div class="col-xs-3 tile" data-tile="1"></div>
       <div class="col-xs-3 tile" data-tile="2"></div>
       <div class="col-xs-3 tile" data-tile="3"></div>

@@ -1,4 +1,5 @@
 body{
+  font-family: 'Pacifico', cursive;
 
 }
 
@@ -7,10 +8,15 @@ img{
   display: none;
 }
 
+#header{
+  text-align: center;
+  margin: 15px;
+}
+
 .tile {
-  height: 150px;
-  background-color: azure;
-  border: 1px solid black;
+  height: 110px;
+  background-color: LightSteelBlue;
+  border: 2px solid black;
   text-align: center;
   padding-top: 5px;
 }
