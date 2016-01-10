@@ -2,9 +2,9 @@
 
 var gameApp = {};
 gameApp.firstTileSelected = false;
-//gameApp.firstSelectedTileNum;
+gameApp.firstSelectedTileNum;
 gameApp.$firstSelectedTile;
-//gameApp.secondTileNum;
+gameApp.secondTileNum;
 gameApp.$secondTile;
 
 
@@ -62,13 +62,14 @@ function appendCardstoDOM(deck){
 function tileClicked(event){
 
   if (!gameApp.firstTileSelected){
-    //gameApp.firstSelectedTileNum = $(this).data("tile");
+    gameApp.firstSelectedTileNum = $(this).data("tile");
     gameApp.$firstSelectedTile = $(this);
+
     console.log(gameApp.$firstSelectedTile, "!");
 
     selectTile();
   } else {
-    //gameApp.secondTileNum = $(this).data("tile");
+    gameApp.secondTileNum = $(this).data("tile");
     gameApp.$secondTile = $(this);
     secondTileClick();
   }
@@ -81,29 +82,49 @@ function selectTile(){
 
   console.log("this", gameApp.$firstSelectedTile)
   console.log("selected tile num", gameApp.firstSelectedTileNum)
+  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
+
 }
 
 
 function secondTileClick(){
+  if(gameApp.firstSelectedTileNum === gameApp.secondTileNum){
+    return;
+  }
   gameApp.$secondTile.children().first().addClass("reveal");
   checkForMatch();
+  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
+
 }
 
 
 function checkForMatch(){
-  var firstPupNum = gameApp.$firstSelectedTile.children().first().data("pupNum")
-  var secondPupNum = gameApp.$secondTile.children().first().data("pupNum")
-  console.log("first pup", firstPupNum);
-  console.log("second pup", secondPupNum);
-  //if (firstPupNum === secondPupNum){
+  var $firstPup = gameApp.$firstSelectedTile.children().first()
+  var $secondPup = gameApp.$secondTile.children().first()
+  console.log("first pup", $firstPup);
+  console.log("second pup", $secondPup);
+  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
+  if ($firstPup.data("pupNum") === $secondPup.data("pupNum")){
     //add some animation here
 
-  // } else {
-  //
-  //   gameApp.firstTileSelected = false;
-  // }
+    $firstPup.remove();
+    $secondPup.remove();
+    gameApp.$firstSelectedTile.css("background-color", "LightSteelBlue");
+    gameApp.$secondTile.css("background-color", "LightSteelBlue");
+    gameApp.firstTileSelected = false;
+
+  } else {
+    setTimeout(hidePuppies, 900);
+    gameApp.firstTileSelected = false;
+
+    function hidePuppies(){
+      $firstPup.removeClass('reveal');
+      $secondPup.removeClass('reveal');
+    }
+  }
 
 }
+
 
 
 function checkWin(){
