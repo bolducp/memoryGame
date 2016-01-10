@@ -8,7 +8,6 @@ gameApp.secondTileNum;
 gameApp.$secondTile;
 gameApp.doneTiles = [];
 
-
 $(document).ready(init);
 
 function init(){
@@ -22,7 +21,6 @@ function clickHandler(){
   $('.tile').click(tileClicked);
   $('#reset').click(reset);
 }
-
 
 // Initialize game
 
@@ -66,14 +64,11 @@ function appendCardstoDOM(deck){
 }
 
 function tileClicked(event){
-
   if (!gameApp.firstTileSelected){
     gameApp.firstSelectedTileNum = $(this).data("tile");
     gameApp.$firstSelectedTile = $(this);
-
-    console.log(gameApp.$firstSelectedTile, "!");
-
     selectTile();
+
   } else {
     gameApp.secondTileNum = $(this).data("tile");
     gameApp.$secondTile = $(this);
@@ -87,12 +82,7 @@ function tileClicked(event){
 
 function selectTile(){
   gameApp.firstTileSelected = true;
-  console.log(gameApp.$firstSelectedTile, "!!");
   gameApp.$firstSelectedTile.children().first().addClass("reveal");
-
-  console.log("this", gameApp.$firstSelectedTile)
-  console.log("selected tile num", gameApp.firstSelectedTileNum)
-  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
 }
 
 
@@ -103,17 +93,12 @@ function secondTileClick(){
   }
   gameApp.$secondTile.children().first().addClass("reveal");
   checkForMatch();
-  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
-
 }
 
 
 function checkForMatch(){
   var $firstPup = gameApp.$firstSelectedTile.children().first()
   var $secondPup = gameApp.$secondTile.children().first()
-  console.log("first pup", $firstPup);
-  console.log("second pup", $secondPup);
-  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
 
   if ($firstPup.data("pupNum") === $secondPup.data("pupNum")){
     //add some animation here
@@ -140,9 +125,7 @@ function checkForMatch(){
   }
 }
 
-
 function checkForWin(){
-  console.log("check for win")
   if (gameApp.doneTiles.length === 16)
   {
     $('h1').text("You win!").addClass("animated swing");
@@ -150,7 +133,6 @@ function checkForWin(){
     $('body').css("background-color", "LemonChiffon ");
   }
 }
-
 
 function reset(){
   location.reload();
