@@ -16,15 +16,11 @@ function init(){
   var shuffledDeck = shuffleDeck(cardDeck);
   appendCardstoDOM(shuffledDeck);
   clickHandler();
-
 }
 
 function clickHandler(){
   $('.tile').click(tileClicked);
   $('#reset').click(reset);
-
-
-
 }
 
 
@@ -97,7 +93,6 @@ function selectTile(){
   console.log("this", gameApp.$firstSelectedTile)
   console.log("selected tile num", gameApp.firstSelectedTileNum)
   console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
-
 }
 
 
@@ -150,10 +145,12 @@ function checkForWin(){
   console.log("check for win")
   if (gameApp.doneTiles.length === 16)
   {
-    alert("you win!");
+    $('h1').text("You win!").addClass("animated swing");
+    $('.tile').addClass("animated bounce");
+    $('body').css("background-color", "LemonChiffon ");
   }
-
 }
+
 
 function reset(){
   location.reload();

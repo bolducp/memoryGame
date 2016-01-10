@@ -1,8 +1,6 @@
 body{
   font-family: 'Pacifico', cursive;
-
 }
-
 
 img{
   display: none;
@@ -16,7 +14,7 @@ img{
 .tile {
   height: 110px;
   background-color: LightSteelBlue;
-  border: 2px solid black;
+  border: 1px solid black;
   text-align: center;
   padding-top: 5px;
 }
