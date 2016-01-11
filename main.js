@@ -1,5 +1,7 @@
 "use strict";
 
+(function(){
+
 var gameApp = {};
 gameApp.numTiles;
 gameApp.firstTileSelected = false;
@@ -128,10 +130,6 @@ function checkForMatch(){
     gameApp.firstTileSelected = false;
   }
 
-  function removePuppies(){
-    $firstPup.remove();
-    $secondPup.remove();
-  }
   function hidePuppies(){
     $firstPup.removeClass('reveal');
     $secondPup.removeClass('reveal');
@@ -150,3 +148,5 @@ function checkForWin(){
 function reset(){
   location.reload();
 }
+
+});
