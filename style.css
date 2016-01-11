@@ -19,11 +19,7 @@ button{
 .tile {
   height: 110px;
   background-color: LightSteelBlue;
-<<<<<<< HEAD
-  border: 2px solid white;
-=======
   border: 2px solid snow;
->>>>>>> 912848fd090f3bed49914b0bc6d0767e8044eaf6
   text-align: center;
   padding-top: 5px;
 }

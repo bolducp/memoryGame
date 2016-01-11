@@ -9,6 +9,7 @@ gameApp.secondTileNum;
 gameApp.$secondTile;
 gameApp.doneTiles = [];
 
+
 $(document).ready(init);
 
 function init(){
@@ -78,6 +79,7 @@ function appendCardstoDOM(deck){
 }
 
 function tileClicked(event){
+
   if (!gameApp.firstTileSelected){
     gameApp.firstSelectedTileNum = $(this).data("tile");
     gameApp.$firstSelectedTile = $(this);
