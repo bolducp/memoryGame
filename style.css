@@ -1,9 +1,14 @@
 body{
   font-family: 'Pacifico', cursive;
+  background-color: snow;
 }
 
 img{
   display: none;
+}
+
+button{
+  margin-left: 3px;
 }
 
 #header{
@@ -14,7 +19,7 @@ img{
 .tile {
   height: 110px;
   background-color: LightSteelBlue;
-  border: 1px solid black;
+  border: 2px solid snow;
   text-align: center;
   padding-top: 5px;
 }

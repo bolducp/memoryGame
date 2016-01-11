@@ -1,6 +1,7 @@
 "use strict";
 
 var gameApp = {};
+gameApp.numTiles;
 gameApp.firstTileSelected = false;
 gameApp.firstSelectedTileNum;
 gameApp.$firstSelectedTile;
@@ -12,23 +13,36 @@ gameApp.doneTiles = [];
 $(document).ready(init);
 
 function init(){
-  var cardDeck = makeDeckCards();
-  var shuffledDeck = shuffleDeck(cardDeck);
-  appendCardstoDOM(shuffledDeck);
   clickHandler();
 }
 
 function clickHandler(){
   $('.tile').click(tileClicked);
   $('#reset').click(reset);
+  $('#start').click(startGame);
 }
 
+function startGame(event){
+  event.preventDefault();
+  gameApp.numTiles = $('#quantity').val();
+  makeBoard(gameApp.numTiles);
+  var cardDeck = makeDeckCards(gameApp.numTiles);
+  var shuffledDeck = shuffleDeck(cardDeck);
+  appendCardstoDOM(shuffledDeck);
+}
 
 // Initialize game
+function makeBoard(numTiles){
+  for (var i = 1; i < +numTiles + 1; i++){
+  $("#board").append("<div class='col-xs-3 tile' data-tile=" + i +"></div>")
+  }
+  $('.tile').click(tileClicked);
+  $('#start').off('click');
+}
 
-function makeDeckCards(){
+function makeDeckCards(numTiles){
   var puppyTiles = [];
-  for (var i = 1; i < 9; i++){
+  for (var i = 1; i < numTiles / 2 + 1; i++){
     var $card = $('<img>').attr( { height:"100px", width:"110px" } ).data("pupNum", i);
     var $cardClone = $('<img>').attr( { height:"100px", width:"110px" } ).data("pupNum", i);
 
@@ -56,7 +70,6 @@ function shuffleDeck(array){
   return array;
 }
 
-
 function appendCardstoDOM(deck){
   var numCardsToMake = deck.length + 1;
   for (var i = 1; i < numCardsToMake; i++){
@@ -70,16 +83,14 @@ function tileClicked(event){
   if (!gameApp.firstTileSelected){
     gameApp.firstSelectedTileNum = $(this).data("tile");
     gameApp.$firstSelectedTile = $(this);
-
-    console.log(gameApp.$firstSelectedTile, "!");
-
     selectTile();
+
   } else {
     gameApp.secondTileNum = $(this).data("tile");
     gameApp.$secondTile = $(this);
     $('.tile').off('click');
     setTimeout(function(){
-      clickHandler();
+      $('.tile').click(tileClicked);
     }, 800);
     secondTileClick();
   }
@@ -87,14 +98,8 @@ function tileClicked(event){
 
 function selectTile(){
   gameApp.firstTileSelected = true;
-  console.log(gameApp.$firstSelectedTile, "!!");
   gameApp.$firstSelectedTile.children().first().addClass("reveal");
-
-  console.log("this", gameApp.$firstSelectedTile)
-  console.log("selected tile num", gameApp.firstSelectedTileNum)
-  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
 }
-
 
 function secondTileClick(){
   if(gameApp.firstSelectedTileNum === gameApp.secondTileNum ||
@@ -103,17 +108,11 @@ function secondTileClick(){
   }
   gameApp.$secondTile.children().first().addClass("reveal");
   checkForMatch();
-  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
-
 }
-
 
 function checkForMatch(){
   var $firstPup = gameApp.$firstSelectedTile.children().first()
   var $secondPup = gameApp.$secondTile.children().first()
-  console.log("first pup", $firstPup);
-  console.log("second pup", $secondPup);
-  console.log("gameApp.firstTileSelected", gameApp.firstTileSelected)
 
   if ($firstPup.data("pupNum") === $secondPup.data("pupNum")){
     //add some animation here
@@ -140,17 +139,14 @@ function checkForMatch(){
   }
 }
 
-
 function checkForWin(){
-  console.log("check for win")
-  if (gameApp.doneTiles.length === 16)
+  if (gameApp.doneTiles.length === +gameApp.numTiles)
   {
     $('h1').text("You win!").addClass("animated swing");
     $('.tile').addClass("animated bounce");
     $('body').css("background-color", "LemonChiffon ");
   }
 }
-
 
 function reset(){
   location.reload();
