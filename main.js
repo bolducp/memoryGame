@@ -117,7 +117,6 @@ function checkForMatch(){
   if ($firstPup.data("pupNum") === $secondPup.data("pupNum")){
     //add some animation here
     $secondPup.addClass("reveal");
-    setTimeout(removePuppies, 900);
     gameApp.$firstSelectedTile.css("background-color", "PeachPuff");
     gameApp.$secondTile.css("background-color", "PeachPuff");
     gameApp.doneTiles.push(gameApp.firstSelectedTileNum, gameApp.secondTileNum);
